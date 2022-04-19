@@ -15,22 +15,43 @@ class FragmentCaching {
     }
 
     /** retourne une chaine hashée */
-    private function hashkey($key) {
+    private function hashkey($keys) {
 
-        if(is_array($key)) {
+        if(is_array($keys)) {
 
-            return implode('-',$key);
+            $return = [];
+
+            foreach($keys as $k) {
+                array_push($return, $this->hashkeyTab($k));
+            }
+
+            return implode('-',$return);
         
         }else {
 
-            return $key;
+            return $keys;
         }
         
     }
 
+    private function hashkeyTab($key) {
+
+        if(is_bool($key)) {
+            
+            return $key ? "1" : "0";
+
+        } elseif (is_object($key)){
+
+            return $key->cache_key();
+
+        }else {
+            return $key;
+        }
+    }
+
     /**
      * 1 - clé et le callback et mise en cache
-     * 2 - testé la clé hashée
+     * 2 - tester la clé hashée
      */
     public function cache($key, Callable $callback) {
 
@@ -38,9 +59,7 @@ class FragmentCaching {
         $value = $this->cache->get($key);
 
 /*         if($value) {
-
             echo $value;
-
         }else {
             // mise en cache
             ob_start();
@@ -48,7 +67,6 @@ class FragmentCaching {
             $content = ob_get_clean();
             $this->cache->set($key,$content);
             echo $content;
-
         } */
 
         // OU 

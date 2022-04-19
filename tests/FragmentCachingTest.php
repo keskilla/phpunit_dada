@@ -10,6 +10,19 @@ class FakeCacheAdapter implements \Dada\CacheAdapterInterface {
     public function set($key, $value){}
 }
 
+class FakeModel {
+
+    private $key;
+
+    public function __construct($key) {
+        $this->key = $key;
+    }
+
+    public function cache_key() {
+        return $this->key;
+    }
+}
+
 class FragmentCachingTest extends PHPUnit_Framework_TestCase {
 
     /**
@@ -86,4 +99,20 @@ class FragmentCachingTest extends PHPUnit_Framework_TestCase {
         $cache->cache('test', function(){return false;});
     }
 
+    /** prise en compte des boolean */
+    public function testKeyWithArrayWithBoolean() {
+
+        $cache = $this->getInstanceWithExpectedGet('test-0-boolean');
+        $cache->cache(['test',false,'boolean'], function(){return false;});
+    }
+
+    /** prise en compte d'un objet */
+    public function testKeyWithArrayWithObject() {
+
+        $fake = new FakeModel('model');
+        $cache = $this->getInstanceWithExpectedGet('test-model-boolean');
+        $cache->cache(['test',$fake,'boolean'], function(){return false;});
+    }
+
+// phpunit --coverage-html coverage
 }

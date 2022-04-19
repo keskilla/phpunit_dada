@@ -20,4 +20,9 @@
     <testsuite name="Super tests">
         <directory>./tests</directory>
     </testsuite>
+    <filter>
+        <whitelist proceessUncoveredFromWhitelist= "true">
+            <directory suffix=".php">src</directory>
+        </whitelist>
+    </filter>
 </phpunit>
