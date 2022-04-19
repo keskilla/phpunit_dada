@@ -37,7 +37,7 @@ class FragmentCaching {
     private function hashkeyTab($key) {
 
         if(is_bool($key)) {
-            
+
             return $key ? "1" : "0";
 
         } elseif (is_object($key)){
@@ -78,5 +78,15 @@ class FragmentCaching {
             $this->cache->set($key,$value);
         }
         echo $value;
+    }
+
+    public function cacheIf($condition, $key, Callable $callback) {
+
+        if($condition == false) {
+            $callback();
+        } else {
+            $this->cache($key, $callback);
+        }
+
     }
 }

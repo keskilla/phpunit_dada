@@ -27,7 +27,9 @@ class FragmentCachingTest extends PHPUnit_Framework_TestCase {
 
     /**
      * $cache = new FragmentCaching($cacheAdapter);
-     * $cache->cache('test', function(){...})
+     * $cache->cache('test', function(){...}) test sur chaîne de caractère
+     * $cache->cache(['','',''] function(){...}) test sur contenu du tableau
+     * $cache->conditionif(condition, [] function({...})) test sur condtion et contenu du tableau
      */
 
     public function testConstructorWithInterface() {
@@ -114,5 +116,27 @@ class FragmentCachingTest extends PHPUnit_Framework_TestCase {
         $cache->cache(['test',$fake,'boolean'], function(){return false;});
     }
 
-// phpunit --coverage-html coverage
+    /** condition faux */
+    // public function testCacheIfWithFalseCondition() {
+    //     //mocker le fragment de caching
+    //     $cache = $this->getMockBuilder(\Dada\FragmentCaching::class)
+    //         ->setConstructorArgs([new FakeCacheAdapter()])
+    //         ->setMethods(['cache']) // mapper la méthode cache
+    //         ->getMock();    // récupère le mock
+    //     $cache->expects($this->never())->method('cache'); // je veux que la méthode cache ne soit jamais appelée
+    //     $this->expectOutputString('salut');
+    //     $cache->cacheIf(false, 'key', function(){echo 'salut';}); //si la condition est fausse, on ne veut pas activer le cache
+    // }
+
+    /** condition vrai */
+    // public function testCacheIfWithTrueCondition() {
+
+    //     $cache = $this->getMockBuilder(\Dada\FragmentCaching::class)
+    //         ->setConstructorArgs([new FakeCacheAdapter()])
+    //         ->setMethods(['cache']) // mapper la méthode cache
+    //         ->getMock();    // récupère le mock
+    //     $cache->expects($this->once())->method('cache'); // je veux que la méthode cache soit appelée
+    //     $cache->cacheIf(true, 'key', function(){echo 'salut';}); //si la condition est vrai, on activer le cache
+    // }
+
 }

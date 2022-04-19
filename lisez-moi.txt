@@ -1,0 +1,10 @@
+1- installer phpunit via composer
+2- Configurer les tests via un fichier de config XML 
+2.1- Exécuter les tests depuis notre dossier bin
+3- Créer la class de test qui s'étend de PHPUnit_Framework_TestCase
+4- Tester via le principe des MOCK : 
+    -tester qu'une fonction est bien appelée et avec les bons arguments
+    -modifier la fonction pour quelle renvoie tel ou tel résultat
+
+RAS : installer XDEBUG et générer le fichier html pour afficher le coverage : 
+// phpunit --coverage-html coverage

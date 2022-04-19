@@ -14,7 +14,8 @@
             <html outputDirectory="html-coverage" lowUpperBound="80" highLowerBound="100" />
         </report>
     </coverage>
-</phpunit> -->
+</phpunit> 
+-->
 
 <phpunit colors="true">
     <testsuite name="Super tests">
